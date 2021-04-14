@@ -1,0 +1,35 @@
+set nocompatible
+
+" plugin management
+call plug#begin('~/.vim/plugged')
+"Sensible - we will see
+Plug 'tpope/vim-sensible'
+
+" markdown
+Plug 'godlygeek/tabular' | Plug 'tpope/vim-markdown'
+"Plug 'iamcco/markdown-preview.nvim', { 'do': { -> mkdp#util#install() } }
+
+"status bar
+Plug 'itchyny/lightline.vim'
+"surrounding brackets
+Plug 'tpope/vim-surround'
+"File tree
+Plug 'scrooloose/nerdtree'
+
+"fuzzy search
+Plug 'junegunn/fzf'
+
+"git
+Plug 'tpope/vim-fugitive'
+Plug 'airblade/vim-gitgutter'
+
+"completion
+Plug 'neoclide/coc.nvim', {'branch': 'release'}
+"Tmux
+Plug 'benmills/vimux'
+
+"python spaces
+Plug 'hynek/vim-python-pep8-indent'
+
+call plug#end()
+
