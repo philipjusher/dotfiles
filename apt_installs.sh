@@ -1,9 +1,14 @@
 #!/bin/bash
+
+echo "do not run this script its crap user permission messed up"
+exit 0
+
+
 export DEBIAN_FRONTEND=noninteractive
 export TZ=Europe
 
 echo "---------------- making it larger this is dev stuff it makes a minimal ubuntu container larger -----------------------"
-unminimize
+# unminimize - #only needed if running inside a container
 
 echo "----------------- Getting initial tools needed for addint repos and certificates ect -------------------"
 apt-get update &&  apt-get install -yq \
@@ -60,4 +65,24 @@ sudo curl -L "https://github.com/docker/compose/releases/download/1.26.2/docker-
 sudo chmod +x /usr/local/bin/docker-compose
 
 
+export homedir=/home/philipusher
+## curl -fsSL https://raw.githubusercontent.com/ohmyzsh/ohmyzsh/master/tools/install.sh  ## this didnt work so i used the interaqctive install
+export ZSH_CUSTOM=${homedir}/.oh-my-zsh
+git clone git://github.com/zsh-users/zsh-autosuggestions ${ZSH_CUSTOM}/plugins/zsh-autosuggestions 
+git clone https://github.com/zsh-users/zsh-syntax-highlighting.git ${ZSH_CUSTOM}/plugins/zsh-syntax-highlighting
+cp zsh/zshrc ${homedir}/.zshrc
 
+
+#TMUX CONF
+cp tmux/tmux.conf ${homedir}/.tmux.conf
+
+
+#VIM Plugins
+curl -fLo ${homedir}/.vim/autoload/plug.vim --create-dirs https://raw.githubusercontent.com/junegunn/vim-plug/master/plug.vim
+cp vim/vimrc ${homedir}/.vimrc
+cp vim/coc-settings.json ${homedir}/.vim/coc-settings.json
+mkdir -p ${homedir}/.config/coc
+vim +'PlugInstall --sync' +qa
+vim +'CocInstall -sync coc-python' +qa
+
+ chsh -s $(which zsh)
